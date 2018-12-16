@@ -1,7 +1,7 @@
 package WayofTime.bloodmagic.util;
 
 import WayofTime.bloodmagic.altar.ComponentType;
-import WayofTime.bloodmagic.api.impl.BloodMagicAPI;
+import WayofTime.bloodmagic.core.RegistrarBloodMagicBlocks;
 import WayofTime.bloodmagic.iface.IDemonWillViewer;
 import WayofTime.bloodmagic.network.BloodMagicPacketHandler;
 import WayofTime.bloodmagic.network.PlayerVelocityPacketProcessor;
@@ -341,8 +341,22 @@ public class Utils {
      * @return The default Block for the EnumAltarComponent
      */
     public static Block getBlockForComponent(ComponentType component) {
-        List<IBlockState> states = BloodMagicAPI.INSTANCE.getComponentStates(component);
-        return states.size() == 0 ? Blocks.AIR : states.get(0).getBlock();
+        switch (component) {
+            case GLOWSTONE:
+                return Blocks.GLOWSTONE;
+            case BLOODSTONE:
+                return RegistrarBloodMagicBlocks.DECORATIVE_BRICK;
+            case BEACON:
+                return Blocks.BEACON;
+            case BLOODRUNE:
+                return RegistrarBloodMagicBlocks.BLOOD_RUNE;
+            case CRYSTAL:
+                return RegistrarBloodMagicBlocks.BLOOD_RUNE;
+            case NOTAIR:
+                return Blocks.STONEBRICK;
+            default:
+                return Blocks.AIR;
+        }
     }
 
     public static float getModifiedDamage(EntityLivingBase attackedEntity, DamageSource source, float amount) {
